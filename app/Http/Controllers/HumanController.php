@@ -31,10 +31,10 @@ class HumanController
     }
 
 
-    public function edit()
+    public function edit(Human $human)
     {
         return view('app.human.edit', [
-            'humans' => [],
+            'human' => $human,
         ]);
     }
 
