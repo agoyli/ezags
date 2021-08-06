@@ -43,7 +43,11 @@
                 <tbody>
                 @foreach($humans as $item)
                     <tr>
-                        <td>{{ $item->number }}</td>
+                        <td>
+                            <a href="{{ route('human.edit', ['human' => $item]) }}">
+                                {{ $item->number() }}
+                            </a>
+                        </td>
                         <td>{{ $item->birthday }}</td>
                         <td>
                             {{ $item->gender }}
@@ -52,43 +56,16 @@
                             {{ $item->first_name }}
                         </td>
                         <td>
-
+                            {{ $item->mother ? $item->mother->full_name : '-' }}
                         </td>
                         <td>
-                            Geldiyewa Merjen
+                            {{ $item->father ? $item->father->full_name : '-' }}
                         </td>
                         <td>
-                            At dakylyar
+                            {{ $item->status }}
                         </td>
                     </tr>
                 @endforeach
-                <tr>
-                    <td>12345</td>
-                    <td>12.02.2020</td>
-                    <td>
-                        4
-                    </td>
-                    <td>
-                        -
-                    </td>
-                    <td>
-                        Geldiyew Geldi
-                    </td>
-                    <td>
-                        Geldiyewa Merjen
-                    </td>
-                    <td>
-                        At dakylyar
-                    </td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12.02.2020</td>
-                </tr>
-                <tr>
-                    <td>12345</td>
-                    <td>12.02.2020</td>
-                </tr>
                 </tbody>
             </table>
 

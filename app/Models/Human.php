@@ -17,6 +17,10 @@ class Human extends Model
     const STATUS_ORPHAN = 'orphan';
     const STATUS_PARENT = 'parent';
 
+    protected $casts = [
+        'birthday' => 'date',
+    ];
+
 
     public static function statuses()
     {
@@ -59,6 +63,11 @@ class Human extends Model
         ];
     }
 
+    public function number()
+    {
+        return $this->birthday->year .'_'. sprintf('%08d', $this->id);
+    }
+
     public function mother()
     {
         return $this->belongsTo(self::class, 'mother_id');
@@ -67,5 +76,10 @@ class Human extends Model
     public function father()
     {
         return $this->belongsTo(self::class, 'father_id');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->last_name .' '. $this->first_name .' '. $this->middle_name;
     }
 }
