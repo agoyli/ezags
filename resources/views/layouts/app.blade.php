@@ -12,11 +12,26 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/datepicker.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
 
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('js/datepicker.min.js') }}"></script>
+        <script>
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var routes = {
+                "human_find": "{{ route('human.find') }}",
+            }
+        </script>
+        <script src="{{ asset('js/main.js') }}"></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -26,7 +41,7 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
+                <header class="bg-white">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -34,8 +49,12 @@
             @endif
 
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
+            <main class="pb-5">
+                <div class="container">
+                    @include('widgets._form_errors')
+                    @include('widgets._flash_messages')
+                    {{ $slot }}
+                </div>
             </main>
         </div>
 

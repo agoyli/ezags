@@ -17,9 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::group(['namespace' => '\App\Http\Controllers'], function () {
+        Route::get('/', 'AppController@dashboard')->name('dashboard');
+        Route::group(['as' => 'human.', 'prefix' => 'human'], function () {
+            Route::get('list','HumanController@list')->name('list');
+            Route::get('create','HumanController@create')->name('create');
+            Route::post('store','HumanController@store')->name('store');
+            Route::get('/edit/{human}','HumanController@edit')->name('edit');
+            Route::post('/update/{human}','HumanController@update')->name('update');
+
+            Route::post('find','HumanController@find')->name('find');
+        });
+    });
+});
 
 
 Route::group(['prefix' => 'admin'], function () {

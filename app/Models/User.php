@@ -20,6 +20,13 @@ class User extends \TCG\Voyager\Models\User
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    const ROLE_ADMIN = 'admin';
+    const ROLE_PARENT = 'parent';
+    const ROLE_HOSPITAL = 'hospital';
+    const ROLE_MARRIAGE_REGISTRY = 'marriage-registry';
+    const ROLE_CHILDREN_SERVICE = 'children-service';
+
+
     /**
      * The attributes that are mass assignable.
      *
