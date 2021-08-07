@@ -17,13 +17,13 @@
             <form action="{{ route('human.store') }}" method="POST">
                 @csrf
                 <div class="row human-group">
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="form-group">
                             <label for="id">ID</label>
                             <input type="text" id="id" disabled class="form-control">
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="form-group">
                             <label for="birthday">Doglan senesi</label>
                             <input type="text" name="birthday" id="birthday" class="form-control airdate"
@@ -31,7 +31,7 @@
                                    value="{{ old('birthday') }}">
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-1">
                         <div class="form-group">
                             <label for="gender">Jynsy</label>
                             <select name="gender" id="gender" class="form-control">

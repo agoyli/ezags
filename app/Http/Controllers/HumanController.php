@@ -39,9 +39,9 @@ class HumanController
     }
 
 
-    public function update()
+    public function update(Request $request,Human $human, Human\UseCases\EditByHospital\FormHandler $formHandler)
     {
-
+        return $formHandler->handle($request,$human);
     }
 
 

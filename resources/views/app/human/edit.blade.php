@@ -17,13 +17,13 @@
             <form action="{{ route('human.update', ['human' => $human]) }}" method="POST">
                 @csrf
                 <div class="row human-group">
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="form-group">
                             <label for="id">ID</label>
                             <input type="text" id="id" disabled class="form-control" value="{{ $human->number() }}">
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="form-group">
                             <label for="birthday">Doglan senesi</label>
                             <input type="text" name="birthday" id="birthday" class="form-control airdate"
@@ -31,15 +31,21 @@
                                    value="{{ old('birthday')??$human->birthday->format('Y-m-d') }}">
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-1">
                         <div class="form-group">
                             <label for="gender">Jynsy</label>
                             <select name="gender" id="gender" class="form-control">
                                 <option value="" selected="selected" disabled></option>
                                 @foreach(\App\Models\Human::genders() as $item)
-                                    <option value="{{ $item }}" @if((old('gender') ?? $human->gender) == $item && !is_null(old('gender')))selected @endif>{{ $item }}</option>
+                                    <option value="{{ $item }}" @if((old('gender') ?? $human->gender) == $item && !is_null(old('gender')??$human->gender))selected @endif>{{ $item }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Doly ady</label>
+                            <input type="text" disabled class="form-control" value="{{ $human->full_name }}">
                         </div>
                     </div>
                 </div>
