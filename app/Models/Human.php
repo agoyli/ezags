@@ -64,6 +64,11 @@ class Human extends Model
         ];
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'human_id');
+    }
+
     public static function getNewNumber(int $year = null): string
     {
         $year = $year ?? now()->year;

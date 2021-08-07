@@ -38,7 +38,8 @@ $(document).ready(function () {
         var val = $(this).val();
         if (val) {
             // val = moment(val);
-            $(this).data('datepicker').selectDate(val.toDate());
+            // console.log(val);
+            // $(this).data('datepicker').selectDate(val.toDate());
         }
     });
     $('.airdatetime').each(function(){
@@ -57,6 +58,15 @@ $(document).ready(function () {
             // val = moment(val);
             $(this).data('datepicker').selectDate(val.toDate());
         }
+    });
+
+    $(".is_account").on('change', function () {
+        var el = $(this).parent().parent().find('.human-email');
+        var elGroup = el.closest('.humanEmailGroup');
+        if ($(this).prop('checked'))
+            elGroup.show();
+        else
+            elGroup.hide();
     });
 
     initAutocompletes()
@@ -95,6 +105,10 @@ function initAutocompletes()
             $(this).closest('.human-group').find('.human-middle-name').val(ui.item.value.middle_name);
             $(this).closest('.human-group').find('.human-birthday').val(ui.item.value.birthday);
             $(this).closest('.human-group').find('.human-gender').val(ui.item.value.gender);
+            console.log(ui.item.value.user);
+            if (ui.item.value.user !== null) {
+                $(this).closest('.human-group').find('.human-email').val(ui.item.value.user.email);
+            }
             return false;
         }
     });

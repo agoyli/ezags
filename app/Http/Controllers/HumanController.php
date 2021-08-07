@@ -51,6 +51,7 @@ class HumanController
         $humans = Human::query()
             ->latest()
             ->where('passport', 'like', '%'.$passportNumber.'%')
+            ->with('user')
             ->get();
         $response['data'] = $humans->unique('passport')->take(10);
         return response()->json($response);

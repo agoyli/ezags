@@ -47,7 +47,7 @@
                     <div class="col-6 human-group">
                         <h4>Ejesi </h4>
                         <label for="mother.is_account">
-                            <input type="checkbox" class="checkbox" id="mother.is_account" name="mother[is_account]">
+                            <input type="checkbox" class="is_account" id="mother.is_account" name="mother[is_account]">
                             Hasap döret we email iber
                         </label>
                         <hr>
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="form-group">
+                                <div class="form-group humanEmailGroup" style="display: none">
                                     <label for="mother.email">E-poçta</label>
                                     <input type="text" name="mother[email]" id="mother.email" value="{{ old('mother.email') }}" class="form-control human-email" autocomplete="off">
                                 </div>
@@ -68,7 +68,6 @@
                         </div>
                         <div class="row">
                             <div class="col-4">
-
                                 <div class="form-group">
                                     <label for="mother.first_name">Ady</label>
                                     <input type="text" name="mother[first_name]" id="mother.first_name" value="{{ old('mother.first_name') }}" class="form-control human-first-name">
@@ -112,39 +111,64 @@
                     <div class="col-6 human-group">
                         <h4>Kakasy</h4>
                         <label for="father.is_account">
-                            <input type="checkbox" class="checkbox" id="father.is_account" name="father[is_account]">
+                            <input type="checkbox" class="is_account" id="father.is_account" name="father[is_account]">
                             Hasap döret we email iber
                         </label>
                         <hr>
                         <input type="hidden" name="father[id]" class="human-id" value="{{ old('father.id') }}">
-                        <div class="form-group">
-                            <label for="father.passport">Pasport belgisi</label>
-                            <input type="text" name="father[passport]" id="father.passport" value="{{ old('father.passport') }}" class="form-control human-passport" autocomplete="off">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="father.passport">Pasport belgisi</label>
+                                    <input type="text" name="father[passport]" id="father.passport" value="{{ old('father.passport') }}" class="form-control human-passport" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group humanEmailGroup" style="display: none">
+                                    <label for="father.email">E-poçta</label>
+                                    <input type="text" name="father[email]" id="father.email" value="{{ old('father.email') }}" class="form-control human-email" autocomplete="off">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="father.first_name">Ady</label>
-                            <input type="text" name="father[first_name]" id="father.first_name" value="{{ old('father.first_name') }}" class="form-control human-first-name">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="father.first_name">Ady</label>
+                                    <input type="text" name="father[first_name]" id="father.first_name" value="{{ old('father.first_name') }}" class="form-control human-first-name">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="father.last_name">Familiýasy</label>
+                                    <input type="text" name="father[last_name]" id="father.last_name" value="{{ old('father.last_name') }}" class="form-control human-last-name">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="father.middle_name">Atasynyň ady</label>
+                                    <input type="text" name="father[middle_name]" id="father.middle_name" value="{{ old('father.middle_name') }}" class="form-control human-middle-name">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="father.last_name">Familiýasy</label>
-                            <input type="text" name="father[last_name]" id="father.last_name" value="{{ old('father.last_name') }}" class="form-control human-last-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="father.middle_name">Atasynyň ady</label>
-                            <input type="text" name="father[middle_name]" id="father.middle_name" value="{{ old('father.middle_name') }}" class="form-control human-middle-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="father.birthday">Doglan senesi</label>
-                            <input type="text" name="father[birthday]" id="father.birthday" value="{{ old('father.birthday') }}" class="form-control human-birthday">
-                        </div>
-                        <div class="form-group">
-                            <label for="father.gender">Jynsy</label>
-                            <select name="father[gender]" id="father.gender" class="form-control human-gender">
-                                <option value="" selected="selected" disabled></option>
-                                @foreach(\App\Models\Human::genders() as $item)
-                                    <option value="{{ $item }}" @if(old('father.gender') == $item && !is_null(old('father.gender')))selected @endif>{{ $item }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="father.birthday">Doglan senesi</label>
+                                    <input type="text" name="father[birthday]" id="father.birthday" value="{{ old('father.birthday') }}" class="form-control human-birthday">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="father.gender">Jynsy</label>
+                                    <select name="father[gender]" id="father.gender" class="form-control human-gender">
+                                        <option value="" selected="selected" disabled></option>
+                                        @foreach(\App\Models\Human::genders() as $item)
+                                            <option value="{{ $item }}" @if(old('father.gender') == $item && !is_null(old('father.gender')))selected @endif>{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

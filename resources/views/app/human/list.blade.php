@@ -68,6 +68,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $humans->links() }}
 
 
 
