@@ -28,6 +28,8 @@ class Handler
         $data = $this->validated($request->all());
         $human = $this->humanFactory->create($data);
         $this->handleParents($data, $human);
+        $human->updateLastName();
+        $human->updateMiddleName();
         return $human;
     }
 

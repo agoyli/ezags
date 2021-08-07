@@ -18,7 +18,7 @@
                 <thead>
                     <tr>
                         <th>
-                            ID
+                            RecID
                         </th>
                         <th>
                             Doglan senesi

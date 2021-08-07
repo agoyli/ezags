@@ -19,8 +19,8 @@
                 <div class="row human-group">
                     <div class="col-3">
                         <div class="form-group">
-                            <label for="id">ID</label>
-                            <input type="text" id="id" disabled class="form-control">
+                            <label for="id">RecID</label>
+                            <input type="text" id="id" disabled class="form-control" value="{{ \App\Models\Human::getNewNumber(now()->year) }}">
                         </div>
                     </div>
                     <div class="col-2">

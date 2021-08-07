@@ -9,7 +9,7 @@ class HumanController
 {
     public function list()
     {
-        $qb = Human::query();
+        $qb = Human::query()->latest('id');
 
         return view('app.human.list', [
             'humans' => $qb->paginate(12),
@@ -24,12 +24,10 @@ class HumanController
         ]);
     }
 
-
     public function store(Request $request, Human\UseCases\CreateByHospital\FormHandler $formHandler)
     {
         return $formHandler->handle($request);
     }
-
 
     public function edit(Human $human)
     {
@@ -38,13 +36,10 @@ class HumanController
         ]);
     }
 
-
     public function update(Request $request,Human $human, Human\UseCases\EditByHospital\FormHandler $formHandler)
     {
         return $formHandler->handle($request,$human);
     }
-
-
 
     public function find(Request $request)
     {

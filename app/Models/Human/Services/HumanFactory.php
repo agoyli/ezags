@@ -12,6 +12,7 @@ class HumanFactory
     {
         $human = new Human();
         $human->birthday = $data['birthday'];
+        $human->number = Human::getNewNumber(is_object($data['birthday']) ? $data['birthday']->format('Y') : date('Y', strtotime($data['birthday'])));
         $human->gender = $data['gender'];
         $human->status = $status;
         if (isset($data['passport'])) {

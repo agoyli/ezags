@@ -28,6 +28,8 @@ class Handler
         $data = $this->validated($request->all());
         $this->humanManager->updateFields($human, $data);
         $this->handleParents($data, $human);
+        $human->updateLastName();
+        $human->updateMiddleName();
         return $human;
     }
 

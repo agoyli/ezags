@@ -19,7 +19,7 @@
                 <div class="row human-group">
                     <div class="col-3">
                         <div class="form-group">
-                            <label for="id">ID</label>
+                            <label for="id">RecID</label>
                             <input type="text" id="id" disabled class="form-control" value="{{ $human->number() }}">
                         </div>
                     </div>

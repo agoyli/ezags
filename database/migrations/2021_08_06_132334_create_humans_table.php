@@ -15,6 +15,7 @@ class CreateHumansTable extends Migration
     {
         Schema::create('humans', function (Blueprint $table) {
             $table->id();
+	    $table->string('number')->unique();
             $table->date('birthday');
             $table->integer('gender');
             $table->string('first_name')->nullable();
