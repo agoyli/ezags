@@ -5,9 +5,24 @@ namespace App\Models\Human\Services;
 
 
 use App\Models\Human;
+use App\Models\User;
+use TCG\Voyager\Models\Role;
 
 class HumanManager
 {
+    private $humanFactory;
+    private $userManager;
+    private $userFactory;
+
+    public function __construct(HumanFactory $humanFactory,
+                                User\Services\UserFactory $userFactory,
+                                User\Services\UserManager $userManager)
+    {
+        $this->humanFactory = $humanFactory;
+        $this->userFactory = $userFactory;
+        $this->userManager = $userManager;
+    }
+
     public function updateFields(Human $human, array $data): void
     {
         if (isset($data['birthday'])) { $human->birthday = $data['birthday']; }
@@ -19,6 +34,38 @@ class HumanManager
         if (isset($data['state'])) { $human->state = $data['state']; }
         if (isset($data['region'])) { $human->region = $data['region']; }
         $human->save();
+    }
+
+    public function handleParents(array $data, Human $baby): void
+    {
+        $baby->mother()->associate($this->handleParent($data['mother']));
+        $baby->father()->associate($this->handleParent($data['father']));
+        $baby->save();
+    }
+
+    public function handleParent(array $data): ?Human
+    {
+        $parent = null;
+        if (!isset($data['passport']) && !isset($data['first_name'])) return null;
+        if (isset($data['id'])) $parent = Human::find($data['id']);
+        else $parent = $this->humanFactory->create($data, Human::STATUS_PARENT);
+        $this->updateFields($parent, $data);
+        if (isset($data['is_account'])) {
+            if (isset($data['email'])) {
+                $userData = [
+                    'email' => $data['email'],
+                    'role' => Role::firstOrNew(['name' => User::ROLE_PARENT])
+                ];
+                if (!$parent->user) {
+                    $user = $this->userFactory->create($userData, $parent);
+                } else {
+                    $user = $parent->user;
+                    $this->userManager->updateFields($user, $userData);
+                }
+//                $this->userManager->sendCreds($user);
+            }
+        }
+        return $parent;
     }
 
     public static function countries(): array

@@ -44,6 +44,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
         Route::group(['as' => 'children_service.', 'prefix' => 'children_service'], function () {
             Route::get('list','ChildrenServiceController@list')->name('list');
+            Route::get('create','ChildrenServiceController@create')->name('create');
+            Route::post('store','ChildrenServiceController@store')->name('store');
             Route::get('edit/{human}','ChildrenServiceController@edit')->name('edit');
             Route::post('edit/{human}','ChildrenServiceController@update')->name('update');
         });

@@ -69,9 +69,24 @@ $(document).ready(function () {
             elGroup.hide();
     });
 
+    var docsCount = $('#documentsList>div').length-1;
+    $('.addDocumentBtn').on('click',function(e) {
+        e.preventDefault();
+        docsCount++;
+        $('#documentsList').append(getDocumentHtml(docsCount));
+        console.log(docsCount,getDocumentHtml(docsCount));
+    });
+
+    $('#documentsList').on("click", ".documentDeleteBtn", function(e) {
+        e.preventDefault();
+        $(this).closest('.document-item').remove();
+    })
+
     $("#state").on('change', function () {
         updateRegions();
     });
+
+
 
     initAutocompletes()
     updateRegions();
@@ -90,6 +105,25 @@ function updateRegions(regionsEl = '#region', statesEl = '#state')
             regionsEl.append('<option value="'+element+'" '+(selected === element ? 'selected' : null)+'>'+element+'</option>');
         });
     }
+}
+
+function getDocumentHtml(index)
+{
+    let html = $('<div class="row justify-content-between document-item">');
+    html.append($.parseHTML($("#documentsList .document-item").html()));
+    html.find('input[name="documents[0][id]"]').remove();
+    html.find("input").each(function(){
+        let oldName = $(this).attr('name');
+        $(this).attr('name', oldName.replace(/0/gi, index));
+        $(this).val(null);
+    });
+    html.find("select").each(function(){
+        let oldName = $(this).attr('name');
+        $(this).attr('name', oldName.replace(/0/gi, index));
+        $(this).val(null);
+    });
+    html.append('<div class="col-1"><em class="fa fa-trash mt-4 documentDeleteBtn" style="cursor: pointer;"></em></div>');
+    return html;
 }
 
 function initAutocompletes()
