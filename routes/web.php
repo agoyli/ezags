@@ -41,6 +41,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::get('list','CivilRegisterController@list')->name('list');
             Route::get('edit/{human}','CivilRegisterController@edit')->name('edit');
             Route::post('edit/{human}','CivilRegisterController@update')->name('update');
+            Route::get('download-bc/{human}','CivilRegisterController@downloadBC')->name('download_db');
         });
         Route::group(['as' => 'children_service.', 'prefix' => 'children_service'], function () {
             Route::get('list','ChildrenServiceController@list')->name('list');

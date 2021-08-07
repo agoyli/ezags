@@ -39,6 +39,22 @@ class CivilRegisterController
             $human->status = Human::STATUS_CHILD;
             $human->notes = null;
             $human->save();
+
+
+            $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('bc1.docx'));
+            $templateProcessor->setValues([
+                'fullname' => $human->full_name,
+                'mother' => $human->mother->full_name,
+                'father' => $human->father->full_name,
+                'birthday' => $human->birthday->format('d-m-Y'),
+                'place' => $human->state.', '.$human->region,
+                'weight' => 65,
+                'height' => 13,
+                'number' => $human->nin(),
+                'doctor' => 'Mukam Tuwakow',
+                'civil' => 'Aýgözel Myradowa',
+            ]);
+            $templateProcessor->saveAs(storage_path('./bc/'.$human->id.'.docx'));
         }
         else {
             $human->status = Human::STATUS_BIRTH;
@@ -47,5 +63,10 @@ class CivilRegisterController
         }
         return redirect()->route('civil_register.list')
             ->with('success', $human->number().' çaga ýatda saklandy.');
+    }
+
+    public function downloadBC(Human $human)
+    {
+        return response()->download($human->getBCFilePath());
     }
 }

@@ -201,4 +201,15 @@ class Human extends Model
     {
         return $this->hasMany(Document::class, 'human_id');
     }
+
+    public function isBCExists()
+    {
+//        dd($this->getBCFilePath());
+        return file_exists($this->getBCFilePath());
+    }
+
+    public function getBCFilePath()
+    {
+        return storage_path('./bc/'.$this->id.'.docx');
+    }
 }
