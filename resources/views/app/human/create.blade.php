@@ -17,7 +17,7 @@
             <form action="{{ route('human.store') }}" method="POST">
                 @csrf
                 <div class="row human-group">
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="form-group">
                             <label for="id">RecID</label>
                             <input type="text" id="id" disabled class="form-control" value="{{ \App\Models\Human::getNewNumber(now()->year) }}">
@@ -31,13 +31,15 @@
                                    value="{{ old('birthday') }}">
                         </div>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <div class="form-group">
                             <label for="gender">Jynsy</label>
                             <select name="gender" id="gender" class="form-control">
                                 <option value="" selected="selected" disabled></option>
                                 @foreach(\App\Models\Human::genders() as $item)
-                                    <option value="{{ $item }}" @if(old('gender') == $item && !is_null(old('gender')))selected @endif>{{ $item }}</option>
+                                    <option value="{{ $item }}" @if(old('gender') == $item && !is_null(old('gender')))selected @endif>
+                                        @lang('app.human_gender_'.$item)
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -101,7 +103,9 @@
                                     <select name="mother[gender]" id="mother.gender" class="form-control human-gender">
                                         <option value="" selected="selected" disabled></option>
                                         @foreach(\App\Models\Human::genders() as $item)
-                                            <option value="{{ $item }}" @if(old('mother.gender') == $item && !is_null(old('mother.gender')))selected @endif>{{ $item }}</option>
+                                            <option value="{{ $item }}" @if(old('mother.gender') == $item && !is_null(old('mother.gender')))selected @endif>
+                                                @lang('app.human_gender_'.$item)
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -164,7 +168,9 @@
                                     <select name="father[gender]" id="father.gender" class="form-control human-gender">
                                         <option value="" selected="selected" disabled></option>
                                         @foreach(\App\Models\Human::genders() as $item)
-                                            <option value="{{ $item }}" @if(old('father.gender') == $item && !is_null(old('father.gender')))selected @endif>{{ $item }}</option>
+                                            <option value="{{ $item }}" @if(old('father.gender') == $item && !is_null(old('father.gender')))selected @endif>
+                                                @lang('app.human_gender_'.$item)
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>

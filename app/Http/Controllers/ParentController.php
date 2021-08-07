@@ -46,8 +46,10 @@ class ParentController
             'first_name' => ['required', 'min:2'],
         ]);
         $human->first_name = $data['first_name'];
+        $human->status = Human::STATUS_CHECK;
         $human->save();
-        return redirect()->route('parent.edit',['human' => $human])->with('success','Çagaňyzyň täze "'.$data['first_name'].'" ady bilen gutlaýarys!');
+        return redirect()->route('parent.edit',['human' => $human])
+            ->with('success','Çagaňyzyň täze "'.$data['first_name'].'" ady bilen gutlaýarys!');
 
     }
 }

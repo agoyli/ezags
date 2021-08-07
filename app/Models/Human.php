@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use function Livewire\str;
@@ -18,9 +19,20 @@ class Human extends Model
     const STATUS_ORPHAN = 'orphan';
     const STATUS_PARENT = 'parent';
 
+    const GENDER_MALE = 2;
+    const GENDER_FEMALE = 1;
+
     protected $casts = [
         'birthday' => 'date',
     ];
+
+    public static function genders()
+    {
+        return [
+            self::GENDER_FEMALE,
+            self::GENDER_MALE,
+        ];
+    }
 
 
     public static function statuses()
@@ -35,46 +47,27 @@ class Human extends Model
         ];
     }
 
-
-
-    public static function genders()
-    {
-        return array_merge(self::maleGenders(), self::femaleGenders());
-    }
-
-    public static function maleGenders()
-    {
-        return [
-            0,
-            2,
-            4,
-            6,
-            8,
-        ];
-    }
-
-    public static function femaleGenders()
-    {
-        return [
-            1,
-            3,
-            5,
-            7,
-            9,
-        ];
-    }
-
     public static function getGenderText(string $gender)
     {
-        if (in_array($gender, self::maleGenders()))
-            return 'Gyz ('.$gender.')';
+        if ($gender == self::GENDER_FEMALE)
+            return 'Gyz';
         else
-            return 'Oglan ('.$gender.')';
+            return 'Oglan';
     }
 
     public function genderText()
     {
         return self::getGenderText($this->gender);
+    }
+
+    public function isGenderFemale()
+    {
+        return $this->gender === self::GENDER_FEMALE;
+    }
+
+    public function isGenderMale()
+    {
+        return $this->gender === self::GENDER_MALE;
     }
 
     public function user()
@@ -139,7 +132,7 @@ class Human extends Model
 
     public function updateMiddleName(bool $canBeNull = true, string $optionalFatherName = null)
     {
-        if (in_array($this->gender, self::femaleGenders())) $postfix = 'wna';
+        if ($this->isGenderFemale()) $postfix = 'wna';
         else $postfix = 'wiç';
         $fatherName = $optionalFatherName ?? optional($this->father)->first_name;
         if (!$fatherName) {
@@ -157,7 +150,7 @@ class Human extends Model
 
     public function updateLastName(bool $canBeNull = true, string $optionalLastName = null)
     {
-        if (in_array($this->gender, self::femaleGenders())) $postfix = 'wa';
+        if ($this->isGenderFemale()) $postfix = 'wa';
         else $postfix = 'w';
         $lastName = $optionalLastName ?? optional($this->father)->last_name;
         if (!$lastName) {

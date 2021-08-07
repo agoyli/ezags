@@ -60,14 +60,14 @@ class Handler
             'mother.last_name' => ['required'],
             'mother.middle_name' => ['required'],
             'mother.birthday' => ['required','date'],
-            'mother.gender' => ['required', Rule::in(Human::femaleGenders())],
+            'mother.gender' => ['required', Rule::in(Human::genders())],
             'father.id' => ['nullable', 'exists:humans,id'],
             'father.passport' => ['required'],
             'father.first_name' => ['required'],
             'father.last_name' => ['required'],
             'father.middle_name' => ['required'],
             'father.birthday' => ['required','date'],
-            'father.gender' => ['required', Rule::in(Human::maleGenders())],
+            'father.gender' => ['required', Rule::in(Human::genders())],
         ]);
         if ($validator->fails()) {
             throw new ValidationException($validator);

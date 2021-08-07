@@ -37,7 +37,9 @@
                             <select name="gender" disabled id="gender" class="form-control">
                                 <option value="" selected="selected" disabled></option>
                                 @foreach(\App\Models\Human::genders() as $item)
-                                    <option value="{{ $item }}" @if((old('gender') ?? $human->gender) == $item && !is_null(old('gender')??$human->gender))selected @endif>{{ $item }}</option>
+                                    <option value="{{ $item }}" @if((old('gender') ?? $human->gender) == $item && !is_null(old('gender')??$human->gender))selected @endif>
+                                        @lang('app.human_gender_'.$item)
+                                    </option>
                                 @endforeach
                             </select>
                         </div>

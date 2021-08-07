@@ -48,7 +48,9 @@
                                 {{ $item->number() }}
                             </a>
                         </td>
-                        <td>{{ optional($item->birthday)->format('Y-m-d') }}</td>
+                        <td>
+                            {{ optional($item->birthday)->format('Y-m-d') }}
+                        </td>
                         <td>
                             {{ $item->genderText() }}
                         </td>
