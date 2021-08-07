@@ -18,6 +18,17 @@
     </script>
     <div class="mt-4">
         <div class="p-4 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            @if($human->notes)
+                <div class="flash-message">
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        {{ $human->notes }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+            @endif
             <form action="{{ route('human.update', ['human' => $human]) }}" method="POST">
                 @csrf
                 <div class="row human-group">

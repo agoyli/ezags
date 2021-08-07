@@ -47,6 +47,11 @@ class Human extends Model
         ];
     }
 
+    public function scopeStatusCheck($query)
+    {
+        $query->where('status', self::STATUS_CHECK);
+    }
+
 
     public function isGenderFemale()
     {

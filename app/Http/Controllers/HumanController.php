@@ -12,7 +12,10 @@ class HumanController
     {
         $user = auth()->user();
         if (!$user->hasRole(User::ROLE_HOSPITAL)) abort(403,'You are not hospital');
-        $qb = Human::query()->latest('id');
+        $qb = Human::query()
+            ->where('status', Human::STATUS_BIRTH)
+            ->orWhere('status', Human::STATUS_NEW_NAME)
+            ->latest('id');
 
         return view('app.human.list', [
             'humans' => $qb->paginate(12),
