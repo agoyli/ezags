@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Human;
 
@@ -9,11 +10,17 @@ class HumanController
 {
     public function list()
     {
+        $user = auth()->user();
+        if (!$user->hasRole(User::ROLE_HOSPITAL)) abort(403,'You are not hospital');
         $qb = Human::query()->latest('id');
 
         return view('app.human.list', [
             'humans' => $qb->paginate(12),
         ]);
+    }
+
+    public function show()
+    {
     }
 
 

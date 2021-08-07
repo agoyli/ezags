@@ -6,12 +6,14 @@ namespace App\Models\Human\UseCases\CreateByHospital;
 
 use App\Models\Human;
 use App\Models\Human\Services\HumanFactory;
+use App\Models\User;
 use App\Models\User\Services\UserFactory;
 use App\Models\User\Services\UserManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use TCG\Voyager\Models\Role;
 
 class Handler
 {
@@ -50,10 +52,17 @@ class Handler
         $this->humanManager->updateFields($parent, $data);
         if (isset($data['is_account'])) {
             if (isset($data['email'])) {
-                $user = $this->userFactory->create([
+                $userData = [
                     'email' => $data['email'],
-                ], $parent);
-                $this->userManager->sendCreds($user);
+                    'role' => Role::firstOrNew(['name' => User::ROLE_PARENT])
+                ];
+                if (!$parent->user) {
+                    $user = $this->userFactory->create($userData, $parent);
+                } else {
+                    $user = $parent->user;
+                    $this->userManager->updateFields($user, $userData);
+                }
+//                $this->userManager->sendCreds($user);
             }
         }
         return $parent;

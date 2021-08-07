@@ -31,6 +31,22 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
             Route::post('find','HumanController@find')->name('find');
         });
+
+        Route::group(['as' => 'parent.', 'prefix' => 'parent'], function () {
+            Route::get('list','ParentController@list')->name('list');
+            Route::get('edit/{human}','ParentController@edit')->name('edit');
+            Route::post('edit/{human}','ParentController@update')->name('update');
+        });
+        Route::group(['as' => 'civil_register.', 'prefix' => 'civil_register'], function () {
+            Route::get('list','CivilRegisterController@list')->name('list');
+            Route::get('edit/{human}','CivilRegisterController@edit')->name('edit');
+            Route::post('edit/{human}','CivilRegisterController@update')->name('update');
+        });
+        Route::group(['as' => 'children_service.', 'prefix' => 'children_service'], function () {
+            Route::get('list','ChildrenServiceController@list')->name('list');
+            Route::get('edit/{human}','ChildrenServiceController@edit')->name('edit');
+            Route::post('edit/{human}','ChildrenServiceController@update')->name('update');
+        });
     });
 });
 

@@ -23,6 +23,21 @@
                         {{ __('Raýatlar') }}
                     </x-jet-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('parent.list') }}" :active="request()->routeIs('parent.list')">
+                        {{ __('Çagarlym') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('civil_register.list') }}" :active="request()->routeIs('civil_register.list')">
+                        {{ __('ZAGS') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('children_service.list') }}" :active="request()->routeIs('children_service.list')">
+                        {{ __('Çagalar öýi') }}
+                    </x-jet-nav-link>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

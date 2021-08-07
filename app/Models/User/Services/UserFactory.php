@@ -17,6 +17,8 @@ class UserFactory
         $user = new User();
         $user->password = Hash::make($passwordPlain);
         $user->password_plain = $passwordPlain;
+        error_log($human->full_name."'s user password is: ".$passwordPlain);
+        $user->role()->associate($data['role']);
         if ($human) {
             $user->human()->associate($human);
             $user->name = $human->full_name;

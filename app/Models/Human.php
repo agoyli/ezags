@@ -108,6 +108,12 @@ class Human extends Model
         return $this->belongsTo(self::class, 'father_id');
     }
 
+    public function children()
+    {
+        return $this->hasMany(self::class, 'father_id')
+            ->orWhere('mother_id', $this->id);
+    }
+
     public function getFullNameAttribute()
     {
         return $this->last_name .' '. $this->first_name .' '. $this->middle_name;
