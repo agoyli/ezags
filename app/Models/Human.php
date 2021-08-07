@@ -64,6 +64,19 @@ class Human extends Model
         ];
     }
 
+    public static function getGenderText(string $gender)
+    {
+        if (in_array($gender, self::maleGenders()))
+            return 'Gyz ('.$gender.')';
+        else
+            return 'Oglan ('.$gender.')';
+    }
+
+    public function genderText()
+    {
+        return self::getGenderText($this->gender);
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'human_id');
@@ -117,6 +130,11 @@ class Human extends Model
     public function getFullNameAttribute()
     {
         return $this->last_name .' '. $this->first_name .' '. $this->middle_name;
+    }
+
+    public function isStatusNewNameExpired()
+    {
+        return $this->updated_at->addHours(5)->isBefore(now());
     }
 
     public function updateMiddleName(bool $canBeNull = true, string $optionalFatherName = null)

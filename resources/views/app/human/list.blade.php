@@ -50,7 +50,7 @@
                         </td>
                         <td>{{ optional($item->birthday)->format('Y-m-d') }}</td>
                         <td>
-                            {{ $item->gender }}
+                            {{ $item->genderText() }}
                         </td>
                         <td>
                             {{ $item->first_name }}
@@ -62,7 +62,7 @@
                             {{ $item->father ? $item->father->full_name : '-' }}
                         </td>
                         <td>
-                            {{ $item->status }}
+                            @lang('app.human_status_'.$item->status)
                         </td>
                     </tr>
                 @endforeach

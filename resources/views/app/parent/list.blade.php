@@ -25,12 +25,6 @@
                         Ady
                     </th>
                     <th>
-                        Ejesi
-                    </th>
-                    <th>
-                        Kakasy
-                    </th>
-                    <th>
                         Ýagdaýy
                     </th>
                 </tr>
@@ -39,34 +33,25 @@
                 @foreach($humans as $item)
                     <tr>
                         <td>
-                            <a href="{{ route('human.edit', ['human' => $item]) }}">
+                            <a href="{{ route('parent.edit', ['human' => $item]) }}">
                                 {{ $item->number() }}
                             </a>
                         </td>
                         <td>{{ optional($item->birthday)->format('Y-m-d') }}</td>
                         <td>
-                            {{ $item->gender }}
+                            {{ $item->genderText() }}
                         </td>
                         <td>
                             {{ $item->first_name }}
                         </td>
                         <td>
-                            {{ $item->mother ? $item->mother->full_name : '-' }}
-                        </td>
-                        <td>
-                            {{ $item->father ? $item->father->full_name : '-' }}
-                        </td>
-                        <td>
-                            {{ $item->status }}
+                            @lang('app.human_status_'.$item->status)
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
             {{ $humans->links() }}
-
-
-
         </div>
     </div>
 </x-app-layout>
