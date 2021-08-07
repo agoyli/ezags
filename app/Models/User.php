@@ -26,6 +26,8 @@ class User extends \TCG\Voyager\Models\User
     const ROLE_MARRIAGE_REGISTRY = 'marriage-registry';
     const ROLE_CHILDREN_SERVICE = 'children-service';
 
+    public $password_plain;
+
 
     /**
      * The attributes that are mass assignable.
@@ -65,4 +67,9 @@ class User extends \TCG\Voyager\Models\User
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function human()
+    {
+        return $this->belongsTo(Human::class, 'human_id');
+    }
 }
