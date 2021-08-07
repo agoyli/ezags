@@ -30,12 +30,6 @@
                             Ady
                         </th>
                         <th>
-                            Ejesi
-                        </th>
-                        <th>
-                            Kakasy
-                        </th>
-                        <th>
                             Ýagdaýy
                         </th>
                     </tr>
@@ -52,16 +46,10 @@
                             {{ optional($item->birthday)->format('Y-m-d') }}
                         </td>
                         <td>
-                            {{ $item->genderText() }}
+                            @lang('app.human_gender_'.$item->gender)
                         </td>
                         <td>
-                            {{ $item->first_name }}
-                        </td>
-                        <td>
-                            {{ $item->mother ? $item->mother->full_name : '-' }}
-                        </td>
-                        <td>
-                            {{ $item->father ? $item->father->full_name : '-' }}
+                            {{ $item->full_name }}
                         </td>
                         <td>
                             @lang('app.human_status_'.$item->status)

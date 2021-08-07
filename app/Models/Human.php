@@ -47,28 +47,18 @@ class Human extends Model
         ];
     }
 
-    public static function getGenderText(string $gender)
-    {
-        if ($gender == self::GENDER_FEMALE)
-            return 'Gyz';
-        else
-            return 'Oglan';
-    }
-
-    public function genderText()
-    {
-        return self::getGenderText($this->gender);
-    }
 
     public function isGenderFemale()
     {
-        return $this->gender === self::GENDER_FEMALE;
+        return $this->gender == self::GENDER_FEMALE;
     }
 
     public function isGenderMale()
     {
-        return $this->gender === self::GENDER_MALE;
+        return $this->gender == self::GENDER_MALE;
     }
+
+
 
     public function user()
     {
@@ -122,12 +112,37 @@ class Human extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->last_name .' '. $this->first_name .' '. $this->middle_name;
+        return $this->last_name .' '. ($this->first_name ?? '[noname]').' '. $this->middle_name;
     }
 
     public function isStatusNewNameExpired()
     {
         return $this->updated_at->addHours(5)->isBefore(now());
+    }
+
+    public function isStatusNewName(): bool
+    {
+        return $this->status === self::STATUS_NEW_NAME;
+    }
+
+    public function isStatusBirth(): bool
+    {
+        return $this->status === self::STATUS_BIRTH;
+    }
+
+    public function isStatusOrphan(): bool
+    {
+        return $this->status === self::STATUS_ORPHAN;
+    }
+
+    public function isStatusCheck(): bool
+    {
+        return $this->status === self::STATUS_CHECK;
+    }
+
+    public function isStatus(): bool
+    {
+        return $this->status === self::STATUS_CHECK;
     }
 
     public function updateMiddleName(bool $canBeNull = true, string $optionalFatherName = null)
@@ -153,11 +168,12 @@ class Human extends Model
         if ($this->isGenderFemale()) $postfix = 'wa';
         else $postfix = 'w';
         $lastName = $optionalLastName ?? optional($this->father)->last_name;
+        $lastName = substr($lastName,0,-1);
         if (!$lastName) {
             if ($canBeNull) $this->last_name = null;
             else throw new \DomainException('Last name will be empty');
         } else {
-            $this->last_name = $lastName;
+            $this->last_name = $lastName.$postfix;
         }
         $this->save();
     }

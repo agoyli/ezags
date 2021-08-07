@@ -26,10 +26,18 @@ class Handler
     public function handle(Request $request, Human $human): Human
     {
         $data = $this->validated($request->all());
-        $this->humanManager->updateFields($human, $data);
-        $this->handleParents($data, $human);
         $human->updateLastName();
         $human->updateMiddleName();
+        $this->humanManager->updateFields($human, $data);
+        $this->handleParents($data, $human);
+
+        if ($human->first_name != '') {
+            $human->status = Human::STATUS_CHECK;
+        }
+        if ($human->isStatusBirth()) {
+            $human->status = Human::STATUS_NEW_NAME;
+        }
+        $human->save();
         return $human;
     }
 
@@ -54,6 +62,12 @@ class Handler
         $validator = Validator::make($data, [
             'birthday' => ['required','date'],
             'gender' => ['required',Rule::in(Human::genders())],
+            'nation' => ['required',Rule::in(array_keys(Human\Services\HumanManager::countries()))],
+            'state' => ['required', Rule::in(array_keys(Human\Services\HumanManager::regions()))],
+            'region' => ['required'],
+            'first_name' => ['nullable','min:2'],
+            'last_name' => ['nullable','min:2'],
+            'middle_name' => ['nullable','min:2'],
             'mother.id' => ['nullable', 'exists:humans,id'],
             'mother.passport' => ['required'],
             'mother.first_name' => ['required'],

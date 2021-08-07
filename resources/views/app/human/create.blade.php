@@ -12,15 +12,36 @@
             <i class="fa fa-list"></i> Ählisi
         </a>
     </div>
+    <script>
+        var regions = @json(\App\Models\Human\Services\HumanManager::regions());
+        var oldRegion = "{{ old('region') }}"
+    </script>
     <div class="mt-4">
         <div class="p-4 bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <form action="{{ route('human.store') }}" method="POST">
                 @csrf
                 <div class="row human-group">
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label for="id">RecID</label>
-                            <input type="text" id="id" disabled class="form-control" value="{{ \App\Models\Human::getNewNumber(now()->year) }}">
+                    <div class="col-12">
+                        <div class="row">
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="id">RecID</label>
+                                    <input type="text" id="id" disabled class="form-control" value="{{ \App\Models\Human::getNewNumber(now()->year) }}">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="id">NIN</label>
+                                    <input type="text" id="id" disabled class="form-control" value="{{ \App\Models\Human::getNewNumber(now()->year) }}">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="id">Wagty</label>
+                                    <input type="text" id="id" disabled class="form-control" value="{{ now()->format('d-m-Y H:i:s') }}">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-2">
@@ -37,11 +58,37 @@
                             <select name="gender" id="gender" class="form-control">
                                 <option value="" selected="selected" disabled></option>
                                 @foreach(\App\Models\Human::genders() as $item)
-                                    <option value="{{ $item }}" @if(old('gender') == $item && !is_null(old('gender')))selected @endif>
+                                    <option value="{{ $item }}" @if(old('gender') == $item)selected @endif>
                                         @lang('app.human_gender_'.$item)
                                     </option>
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="nation">Milleti</label>
+                            <select name="nation" id="nation" class="form-control">
+                                @foreach(\App\Models\Human\Services\HumanManager::countries() as $key => $title)
+                                    <option value="{{ $key }}" @if((old('state') ?? 'TM') == $key)selected @endif>{{ strtoupper($key) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="state">Welaýat</label>
+                            <select name="state" id="state" class="form-control">
+                                @foreach(\App\Models\Human\Services\HumanManager::regions() as $key => $title)
+                                    <option value="{{ $key }}" @if(old('state') == $key)selected @endif>{{ $key }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="region">Etrap</label>
+                            <select name="region" id="region" class="form-control"></select>
                         </div>
                     </div>
                 </div>

@@ -39,7 +39,7 @@
                         </td>
                         <td>{{ optional($item->birthday)->format('Y-m-d') }}</td>
                         <td>
-                            {{ $item->genderText() }}
+                            @lang('app.human_gender_'.$item->gender)
                         </td>
                         <td>
                             {{ $item->first_name }}

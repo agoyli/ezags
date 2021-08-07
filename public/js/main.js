@@ -69,10 +69,28 @@ $(document).ready(function () {
             elGroup.hide();
     });
 
-    initAutocompletes()
+    $("#state").on('change', function () {
+        updateRegions();
+    });
 
+    initAutocompletes()
+    updateRegions();
 
 });
+
+function updateRegions(regionsEl = '#region', statesEl = '#state')
+{
+    var regionsEl = $(regionsEl);
+    var statesEl = $(statesEl);
+    regionsEl.html("");
+    if (typeof regions[statesEl.val()] !== 'undefined') {
+        regionsEl.append('<option></option>');
+        regions[statesEl.val()].forEach(function (element) {
+            var selected = oldRegion;
+            regionsEl.append('<option value="'+element+'" '+(selected === element ? 'selected' : null)+'>'+element+'</option>');
+        });
+    }
+}
 
 function initAutocompletes()
 {

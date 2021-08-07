@@ -82,6 +82,9 @@ class Handler
         $validator = Validator::make($data, [
             'birthday' => ['required','date'],
             'gender' => ['required',Rule::in(Human::genders())],
+            'nation' => ['required',Rule::in(array_keys(Human\Services\HumanManager::countries()))],
+            'state' => ['required', Rule::in(array_keys(Human\Services\HumanManager::regions()))],
+            'region' => ['required'],
             'mother.id' => ['nullable', 'exists:humans,id'],
             'mother.is_account' => ['nullable'],
             'mother.email' => ['nullable'],

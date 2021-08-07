@@ -21,10 +21,14 @@ class CreateHumansTable extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('middle_name')->nullable();
+            $table->string('nation')->nullable();
+            $table->string('state')->nullable();
+            $table->string('region')->nullable();
             $table->string('passport')->nullable();
             $table->unsignedBigInteger('mother_id')->nullable();
             $table->unsignedBigInteger('father_id')->nullable();
             $table->string('status')->default(\App\Models\Human::STATUS_BIRTH);
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
