@@ -121,6 +121,15 @@
                                             <td>
                                                 @if (isset($row->details->view))
                                                     @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $data->{$row->field}, 'action' => 'browse', 'view' => 'browse', 'options' => $row->details])
+                                                @elseif($row->field == 'subject_type')
+                                                    @if($data->subject_type == \App\Models\Human::class)
+                                                    {{ 'Raýat: '.$data->subject->full_name  }}
+                                                    @endif
+
+
+
+
+
                                                 @elseif($row->type == 'image')
                                                     <img src="@if( !filter_var($data->{$row->field}, FILTER_VALIDATE_URL)){{ Voyager::image( $data->{$row->field} ) }}@else{{ $data->{$row->field} }}@endif" style="width:100px">
                                                 @elseif($row->type == 'relationship')
@@ -202,6 +211,17 @@
                                                     <div>{{ mb_strlen( strip_tags($data->{$row->field}, '<b><i><u>') ) > 200 ? mb_substr(strip_tags($data->{$row->field}, '<b><i><u>'), 0, 200) . ' ...' : strip_tags($data->{$row->field}, '<b><i><u>') }}</div>
                                                 @elseif($row->type == 'coordinates')
                                                     @include('voyager::partials.coordinates-static-image')
+
+
+
+
+
+
+
+
+
+
+
                                                 @elseif($row->type == 'multiple_images')
                                                     @php $images = json_decode($data->{$row->field}); @endphp
                                                     @if($images)

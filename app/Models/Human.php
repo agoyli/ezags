@@ -99,6 +99,15 @@ class Human extends Model
         return $year.'-'.$number;
     }
 
+    public static function getNewNin(int $year = null): string
+    {
+        $year = $year ?? now()->year;
+        $number = 1;
+        $last = Human::query()->where('number', 'like', $year.'%')->latest()->first();
+        if ($last) $number = (int)str_replace($year.'-', '', $last->number)+1;
+        return $year.'-'.$number;
+    }
+
     public function numberArray():array
     {
         $number = $this->number;
