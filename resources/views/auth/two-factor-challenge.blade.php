@@ -6,11 +6,11 @@
 
         <div x-data="{ recovery: false }">
             <div class="mb-4 text-sm text-gray-600" x-show="! recovery">
-                {{ __('Please confirm access to your account by entering the authentication code provided by your authenticator application.') }}
+                Hasabyňyza girmezden öň 2 faktorly awtorizasiýa üçin wagtlaýyn kody giriziň
             </div>
 
             <div class="mb-4 text-sm text-gray-600" x-show="recovery">
-                {{ __('Please confirm access to your account by entering one of your emergency recovery codes.') }}
+                Hasabyňyza girmezden öň 2 faktorly awtorizasiýa üçin dikeldiş kodlaryň birini giriziň
             </div>
 
             <x-jet-validation-errors class="mb-4" />
@@ -19,12 +19,12 @@
                 @csrf
 
                 <div class="mt-4" x-show="! recovery">
-                    <x-jet-label for="code" value="{{ __('Code') }}" />
+                    <x-jet-label for="code" value="{{ __('Wagtlaýyn açar söz') }}" />
                     <x-jet-input id="code" class="block mt-1 w-full" type="text" inputmode="numeric" name="code" autofocus x-ref="code" autocomplete="one-time-code" />
                 </div>
 
                 <div class="mt-4" x-show="recovery">
-                    <x-jet-label for="recovery_code" value="{{ __('Recovery Code') }}" />
+                    <x-jet-label for="recovery_code" value="{{ __('Dikeldiş kod') }}" />
                     <x-jet-input id="recovery_code" class="block mt-1 w-full" type="text" name="recovery_code" x-ref="recovery_code" autocomplete="one-time-code" />
                 </div>
 
@@ -35,7 +35,7 @@
                                         recovery = true;
                                         $nextTick(() => { $refs.recovery_code.focus() })
                                     ">
-                        {{ __('Use a recovery code') }}
+                        {{ __('Dikeldiş kod ulanmak') }}
                     </button>
 
                     <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
@@ -44,11 +44,11 @@
                                         recovery = false;
                                         $nextTick(() => { $refs.code.focus() })
                                     ">
-                        {{ __('Use an authentication code') }}
+                        {{ __('2FA') }}
                     </button>
 
                     <x-jet-button class="ml-4">
-                        {{ __('Log in') }}
+                        {{ __('Giriş') }}
                     </x-jet-button>
                 </div>
             </form>

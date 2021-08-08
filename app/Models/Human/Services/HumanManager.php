@@ -62,7 +62,7 @@ class HumanManager
                     $user = $parent->user;
                     $this->userManager->updateFields($user, $userData);
                 }
-//                $this->userManager->sendCreds($user);
+                $this->userManager->sendCreds($user);
             }
         }
         return $parent;

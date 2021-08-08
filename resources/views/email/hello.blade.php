@@ -1,7 +1,7 @@
-Hello {{ $user->name }}!
+Salam {{ $user->name }}!
 <br>
 <hr>
-Welcome to our system!
+{{ config('app.name') }} ulgamynda hoş gördük!
 <hr>
-<b>Login is our email</b><br>
-<b>Password: </b>{{ $user->password_plain }}
+<b>Login - siziň e-poçtaňyz</b><br>
+<b>Açar söz: </b>{{ $user->password_plain }}

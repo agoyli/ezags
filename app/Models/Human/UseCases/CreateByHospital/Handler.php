@@ -46,7 +46,7 @@ class Handler
         return $human;
     }
 
-    public function handleParent(array $data): Human
+    public function handleParent(array $data, Human $baby): Human
     {
         $parent = null;
         if (isset($data['id'])) $parent = Human::find($data['id']);
@@ -64,7 +64,9 @@ class Handler
                     $user = $parent->user;
                     $this->userManager->updateFields($user, $userData);
                 }
-//                $this->userManager->sendCreds($user);
+                if ($user->password_plain)
+                    $this->userManager->sendCreds($user);
+                $this->userManager->sendNewChild($user, $baby);
             }
         }
         return $parent;
@@ -72,8 +74,8 @@ class Handler
 
     public function handleParents(array $data, Human $baby): void
     {
-        $baby->mother()->associate($this->handleParent($data['mother']));
-        $baby->father()->associate($this->handleParent($data['father']));
+        $baby->mother()->associate($this->handleParent($data['mother'], $baby));
+        $baby->father()->associate($this->handleParent($data['father'], $baby));
         $baby->save();
     }
 

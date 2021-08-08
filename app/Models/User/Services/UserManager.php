@@ -15,7 +15,15 @@ class UserManager
     public function sendCreds(User $user)
     {
         Mail::send('email.hello', ['user' => $user], function ($m) use ($user) {
-            $m->subject('Hello!');
+            $m->subject('Salam!');
+            $m->to($user->email);
+        });
+    }
+
+    public function sendNewChild(User $user, Human $child)
+    {
+        Mail::send('email.new_child', ['user' => $user, 'human' => $child], function ($m) use ($user) {
+            $m->subject('Buşluk!');
             $m->to($user->email);
         });
     }

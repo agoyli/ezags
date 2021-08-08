@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use function Livewire\str;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Human extends Model
 {
     use HasFactory;
+    use LogsActivity;
+
+    protected $fillable = ['is_orphan', 'notes', 'status', 'father_id', 'mother_id', 'passport', 'region', 'state', 'nation',
+        'middle_name', 'first_name', 'last_name', 'gender', 'birthday'];
+
+    protected static $logAttributes = ['is_orphan', 'notes', 'status', 'father_id', 'mother_id', 'passport', 'region', 'state', 'nation',
+        'middle_name', 'first_name', 'last_name', 'gender', 'birthday'];
 
     const STATUS_BIRTH = 'birth';
     const STATUS_NEW_NAME = 'new-name';
@@ -118,9 +124,19 @@ class Human extends Model
         return $this->belongsTo(self::class, 'mother_id');
     }
 
+    public function motherId()
+    {
+        return $this->mother();
+    }
+
     public function father()
     {
         return $this->belongsTo(self::class, 'father_id');
+    }
+
+    public function fatherId()
+    {
+        return $this->father();
     }
 
     public function children()
@@ -211,5 +227,11 @@ class Human extends Model
     public function getBCFilePath()
     {
         return storage_path('./bc/'.$this->id.'.docx');
+    }
+
+    public function toString(): string
+    {
+        dd($this->full_name);
+        return $this->full_name;
     }
 }
