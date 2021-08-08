@@ -46,6 +46,12 @@
                         </td>
                         <td>
                             @lang('app.human_status_'.$item->status)
+                            <br>
+                            @if($item->isBCExists())
+                                <a href="{{ route('civil_register.download_db',['human' => $item]) }}" class="btn btn-sm btn-success">
+                                    <i class="fa fa-download"></i>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

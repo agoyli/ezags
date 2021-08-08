@@ -43,7 +43,7 @@
                             {{ $item->full_name }}
                         </td>
                         <td>
-                            {{ $item->status }}
+                            {{ $item->status }} <br>
                             @if($item->isBCExists())
                                 <a href="{{ route('civil_register.download_db',['human' => $item]) }}" class="btn btn-sm btn-success">
                                     <i class="fa fa-download"></i>
