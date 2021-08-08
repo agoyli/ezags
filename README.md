@@ -17,9 +17,9 @@ In browser open: http://localhost:8080
 * **MySQL or MariaDB**
 * **Composer**
 ### Screenshots
-![OneByte](https://github.com/AshgabatGDG/VooDooBoys/blob/master/db.png?raw=true)
-![OneByte](https://github.com/AshgabatGDG/VooDooBoys/blob/master/s1.png?raw=true)
-![OneByte](https://github.com/AshgabatGDG/VooDooBoys/blob/master/s2.png?raw=true)
-![OneByte](https://github.com/AshgabatGDG/VooDooBoys/blob/master/s3.png?raw=true)
+![OneByte](https://gitlab.com/hackathon_2/onebyte/-/raw/master/db.png?raw=true)
+![OneByte](https://gitlab.com/hackathon_2/onebyte/-/raw/master/s1.png?raw=true)
+![OneByte](https://gitlab.com/hackathon_2/onebyte/-/raw/master/s2.png?raw=true)
+![OneByte](https://gitlab.com/hackathon_2/onebyte/-/raw/master/s3.png?raw=true)
 
 
