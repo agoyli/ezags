@@ -161,7 +161,7 @@ class Human extends Model
 
     public function isStatusNewNameExpired()
     {
-        return $this->updated_at->addHours(5)->isBefore(now());
+        return $this->updated_at->addDays(5)->isBefore(now());
     }
 
     public function isStatusNewName(): bool

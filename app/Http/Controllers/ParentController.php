@@ -48,7 +48,7 @@ class ParentController
         $human->first_name = $data['first_name'];
         $human->status = Human::STATUS_CHECK;
         $human->save();
-        return redirect()->route('parent.edit',['human' => $human])
+        return redirect()->route('parent.list',['human' => $human])
             ->with('success','Çagaňyzyň täze "'.$data['first_name'].'" ady bilen gutlaýarys!');
 
     }

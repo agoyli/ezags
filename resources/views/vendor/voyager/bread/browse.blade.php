@@ -125,7 +125,14 @@
                                                     @if($data->subject_type == \App\Models\Human::class)
                                                     {{ 'Raýat: '.$data->subject->full_name  }}
                                                     @endif
-
+                                                @elseif($row->field == 'properties')
+                                                    <ul>
+                                                        @foreach($data->properties as $key => $item)
+                                                            <li><b>
+                                                                    {{ $key }}
+                                                                </b> => {{ $item }}</li>
+                                                        @endforeach
+                                                    </ul>
 
 
 
